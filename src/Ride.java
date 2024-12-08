@@ -148,13 +148,21 @@ public class Ride implements RideInterface {
 
     @Override
     public void printRideHistory() {
-
+        if (rideHistory.isEmpty()) {
+            System.out.println("No visitors have experienced the ride '" + rideName + "' so far.");
+        } else {
+            System.out.println("Ride history for '" + rideName + "':");
+            for (Visitor visitor : rideHistory) {
+                System.out.println(visitor.getName() + " | Age: " + visitor.getAge());
+            }
+        }
     }
 
 
     // Sort the ride history
     public void sortRideHistory() {
-
+        Collections.sort(rideHistory, new VisitorComparator());
+        System.out.println("Ride history has been sorted.");
     }
 
 
