@@ -165,7 +165,72 @@ public class Ride implements RideInterface {
         System.out.println("Ride history has been sorted.");
     }
 
+    //export the ride to file
+    public void exportRideHistory(String filename) {
+        // Create a FileWriter and BufferedWriter to write data to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            // Write the header row for clarity (optional)
+            writer.write("Name,Age,Gender,Ticket ID,Membership ID\n");
 
+            // Iterate over all visitors in the ride history
+            for (Visitor visitor : rideHistory) {
+                // Write each visitor's information to the file in CSV format
+                writer.write(visitor.getName() + "," + visitor.getAge() + ","
+                        + visitor.getGender() + "," + visitor.getTicket()
+                        + "," + visitor.getVipId() + "\n");
+            }
+            System.out.println("Ride history has been successfully exported to: " + filename);
+        } catch (IOException e) {
+            System.err.println("An error occurred while exporting the ride history: " + e.getMessage());
+        }
+    }
+
+
+    // Import Ride History from a file
+    public void importRideHistory(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+
+            // Skip the header row if it exists (optional)
+            reader.readLine(); // Assuming the first line is the header
+
+            // Read each line from the file
+            while ((line = reader.readLine()) != null) {
+                // Split the line into its components
+                String[] data = line.split(",");
+
+                if (data.length == 5) {  // Ensure there are 5 fields in the line
+                    try {
+                        // Extract the fields from the line
+                        String name = data[0].trim();
+                        int age = Integer.parseInt(data[1].trim());
+                        String gender = data[2].trim();
+                        String ticketId = data[3].trim();
+                        int membershipId = Integer.parseInt(data[4].trim());
+
+                        // Create a new Visitor object
+                        Visitor visitor = new Visitor(name, age, gender, ticketId, membershipId);
+
+                        // Add the visitor to the queue
+                        visitorQueue.add(visitor);
+                        System.out.println("Visitor " + visitor.getName() + " (Age: " + visitor.getAge() + ") has been successfully added to the ride history.");
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Invalid number format in line: " + line);
+                    } catch (Exception e) {
+                        System.out.println("Error: Unable to process the line: " + line);
+                    }
+                } else {
+                    System.out.println("Skipping invalid data (line does not contain 5 fields): " + line);
+                }
+            }
+
+            System.out.println("The ride history has been successfully imported from file: " + filename);
+
+        } catch (IOException e) {
+            System.out.println("Failed to import ride history from " + filename + ": " + e.getMessage());
+        }
+    }
 
 
 }

@@ -106,16 +106,88 @@ public class AssignmentTwo {
 
 
     public void partFive() {
+        // Create a new Employee to operate the ride
+        Employee operator = new Employee("Bob", 40, "Male", "E102", "Ride Operator");
 
+        // Create a new Ride object with max riders as 2
+        Ride rollerCoaster = new Ride("Roller Coaster", 2, operator);
+
+        // Add at least 10 visitors to the queue
+        Visitor visitor1 = new Visitor("Tom", 25, "Male", "V101", 000);
+        Visitor visitor2 = new Visitor("Sherly", 22, "Female", "V102", 999);
+        Visitor visitor3 = new Visitor("Ben", 28, "Male", "V103", 6777);
+        Visitor visitor4 = new Visitor("David", 24, "Female", "V104", 868);
+        Visitor visitor5 = new Visitor("Jack", 30, "Male", "V105", 456654);
+        Visitor visitor6 = new Visitor("Lee", 30, "Female", "V106", 645645);
+        Visitor visitor7 = new Visitor("Jack", 25, "Male", "V101", 654654);
+        Visitor visitor8 = new Visitor("Sharon", 22, "Female", "V102", 65465463);
+        Visitor visitor9 = new Visitor("Benny", 28, "Male", "V103", 635634);
+        Visitor visitor10 = new Visitor("Leo", 24, "Female", "V104", 63463546);
+        Visitor visitor11 = new Visitor("Nehemia", 30, "Male", "V105", 634565436);
+
+        // Add visitors to the queue
+        rollerCoaster.addVisitorToQueue(visitor1);
+        rollerCoaster.addVisitorToQueue(visitor2);
+        rollerCoaster.addVisitorToQueue(visitor3);
+        rollerCoaster.addVisitorToQueue(visitor4);
+        rollerCoaster.addVisitorToQueue(visitor5);
+        rollerCoaster.addVisitorToQueue(visitor7);
+        rollerCoaster.addVisitorToQueue(visitor8);
+        rollerCoaster.addVisitorToQueue(visitor9);
+        rollerCoaster.addVisitorToQueue(visitor10);
+        rollerCoaster.addVisitorToQueue(visitor11);
+
+        // Print all visitors in the queue before the cycle
+        System.out.println("\nVisitors in queue before the cycle:");
+        rollerCoaster.printQueue();
+
+        // Run one cycle of the ride
+        rollerCoaster.runOneCycle();
+
+        // Print all visitors in the queue after the cycle
+        System.out.println("\nVisitors in queue after the cycle:");
+        rollerCoaster.printQueue();
+
+        // Print the ride history
+        System.out.println("\nRide history:");
+        rollerCoaster.printRideHistory();
     }
 
 
     public void partSix() {
+        // Create a new Employee to operate the ride
+        Employee operator = new Employee("Amy", 23, "Female", "E34", "Ride Operator");
 
+        // Create a new Ride object with max riders as 2
+        Ride rollerCoaster = new Ride("Roller Coaster", 2, operator);
+
+        // Create 5 visitors
+        Visitor visitor1 = new Visitor("Jack", 25, "Male", "V101", 111);
+        Visitor visitor2 = new Visitor("Sharon", 22, "Female", "V102", 222);
+        Visitor visitor3 = new Visitor("Benny", 28, "Male", "V103", 333);
+        Visitor visitor4 = new Visitor("Leo", 24, "Female", "V104", 444);
+        Visitor visitor5 = new Visitor("Nehemia", 30, "Male", "V105", 555);
+
+        // Add visitors to the ride history
+        rollerCoaster.addVisitorToHistory(visitor1);
+        rollerCoaster.addVisitorToHistory(visitor2);
+        rollerCoaster.addVisitorToHistory(visitor3);
+        rollerCoaster.addVisitorToHistory(visitor4);
+        rollerCoaster.addVisitorToHistory(visitor5);
+
+        // Export the ride history as a CSV file
+        String filename = "history.csv";
+        rollerCoaster.exportRideHistory(filename);
     }
 
 
     public void partSeven() {
-
+        // Part 7 implementation
+        Employee operator = new Employee("Bob", 35, "Female", "E342", "Ride Operator");
+        Ride rollerCoaster = new Ride("Roller Coaster", 2, operator);
+        rollerCoaster.importRideHistory("history.csv");
+        System.out.println("The number of Visitors: "+rollerCoaster.getSizeOfVisitorQueue() +"\n");
+        System.out.println("All Visitors:");
+        rollerCoaster.printQueue();
     }
 }
